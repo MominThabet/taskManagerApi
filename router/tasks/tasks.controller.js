@@ -1,13 +1,18 @@
+const { addTask } = require('../../model/tasks.model');
+
 function httpGetAllTasks(req, res) {
     res.json({
         message: 'get tasks',
     });
 }
 
-function httpPostTask(req, res) {
-    res.json({
-        message: 'post tasks',
-    });
+async function httpPostTask(req, res) {
+    if (!req.body.name) {
+        return res.status(404).json({ error: 'give valid task name' });
+    }
+
+    await addTask({ name: req.body.name });
+    return res.status(200).json({ msg: 'saved successfully' });
 }
 
 function httpGetTask(req, res) {
