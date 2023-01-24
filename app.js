@@ -1,16 +1,15 @@
-const express = require('express');
 const path = require('path');
+const express = require('express');
+
+const api = require('./router/api');
 
 const app = express();
 
 require('dotenv').config();
 
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve('public', 'index.html'));
-});
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-const port = process.env.PORT || 3000;
+app.use('/api/v1', api);
 
-app.listen(port, () => {
-    console.log('listening on port', port);
-});
+module.exports = app;
