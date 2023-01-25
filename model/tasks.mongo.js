@@ -10,6 +10,10 @@ const tasksSchema = new mongoose.Schema({
         required: true,
         default: false,
     },
+    upcoming: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 module.exports = mongoose.model('Task', tasksSchema);
