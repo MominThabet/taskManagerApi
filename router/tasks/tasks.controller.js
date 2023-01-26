@@ -38,9 +38,11 @@ async function httpPatchTask(req, res) {
     }
     const newTask = { name: existsTask.name, completed: existsTask.completed };
     newTask.name = req.body.name ? req.body.name : existsTask.name;
-    newTask.completed = req.body.completed
-        ? req.body.completed
-        : existsTask.completed;
+
+    newTask.completed =
+        req.body.completed !== existsTask.completed
+            ? req.body.completed
+            : existsTask.completed;
     // const newTask = { name: req.body.name, completed: req.body.completed };
 
     const patchedTask = await patchTaskById(taskId, newTask);
